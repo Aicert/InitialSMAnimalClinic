@@ -46,20 +46,20 @@
                     <!-- DataTable for Appointments -->
         <div class="card mb-3">
                 <div class="card-header">
-                  <i class="fa fa-list-alt"></i>
-                  Appointments</div>
+                  <i class="fa fa-user-md"></i>
+                  List of Doctor</div>
                 <div class="card-body">
                   <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                       <thead>
                         <tr>
                           <th>Id</th>
-                          <th>Pet's Name</th>
-                          <th>Owner Name</th>
                           <th>Doctor Name</th>
-                          <th>Date Schedule</th>
-                          <th>Time</th>
-                          <th>Problem</th>
+                          <th>Available Date To</th>
+                          <th>Available Date From</th>
+                          <th>Created By</th>
+                          <th>Updated By</th>
+                          <th>Created Date</th>
                           <th>Status</th>
                           <th>Action</th>
                         </tr>
@@ -67,7 +67,7 @@
                       <tbody>
                                    <?php   
 
-                                        $sql = "SELECT * from tbl_appointment";
+                                        $sql = "SELECT * from tbl_doctor";
                                         $query = $conn -> prepare($sql);
                                         $query->execute();
                                         while($row =  $query->fetch())
@@ -75,13 +75,13 @@
                                        ?>  
                                          <tr>
                                                 <td> <?php echo htmlentities($row['id']);?></td>
-                                                <td> <?php echo htmlentities($row['petName']);?></td>
-                                                <td> <?php echo htmlentities($row['ownerName']);?></td>
                                                 <td> <?php echo htmlentities($row['doctorName']);?></td>
-                                                <td> <?php echo htmlentities($row['dateSchedule']);?></td>
-                                                <td> <?php echo htmlentities($row['time']);?></td>
-                                                <td> <?php echo htmlentities($row['problem']);?></td>
-                                                 <td> <?php echo htmlentities($row['status']);?></td>
+                                                <td> <?php echo htmlentities($row['availableDateTo']);?></td>
+                                                <td> <?php echo htmlentities($row['availableDateFrom']);?></td>
+                                                <td> <?php echo htmlentities($row['createdBy']);?></td>
+                                                <td> <?php echo htmlentities($row['updatedBy']);?></td>
+                                                <td> <?php echo htmlentities($row['createdDate']);?></td>
+                                                <td> <?php echo htmlentities($row['status']);?></td>
                                                 <td>
 
                                                 <button type="button"  data-toggle="modal" data-target="#myModal" class="update btn btn-primary mt-3 mb-0"> UPDATE </button>

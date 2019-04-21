@@ -1,3 +1,47 @@
+<?php
+   include "config.php";
+
+      if(isset($_GET['idPatient']))
+        {
+                $id=$_GET['idPatient'];
+
+                $sql = "DELETE FROM patient WHERE idPatient=:id";
+                $query = $conn->prepare($sql);   
+                $query -> bindParam(':id',$id, PDO::PARAM_STR);
+                $query -> execute();
+                header('location:patientAll.php');
+        }
+
+
+        if(isset($_POST['btnUpdate']))
+        {
+                $id=$_POST['hiddenId'];
+                $petName=$_POST['petName'];
+                $species=$_POST['species'];
+                $ownerName=$_POST['ownerName'];
+                $mobile=$_POST['mobile'];
+                $email=$_POST['email'];
+                $address=$_POST['address'];
+                $gender=$_POST['gender'];
+                echo '<script type="text/javascript">alert("'.$gender.'");</script>';
+           
+                $sql = "UPDATE patient set petName=:petName,species=:species,ownerName=:ownerName,mobile=:mobile,email=:email,patientAddress=:address,gender=:gender
+                WHERE idPatient=:id";
+                $query = $conn->prepare($sql);   
+                $query -> bindParam(':id',$id);
+                $query -> bindParam(':petName',$petName); 
+                $query -> bindParam(':species',$species); 
+                $query -> bindParam(':ownerName',$ownerName); 
+                $query -> bindParam(':mobile',$mobile); 
+                $query -> bindParam(':email',$email); 
+                $query -> bindParam(':address',$address); 
+                $query -> bindParam(':gender',$gender); 
+                $query -> execute();
+                header('location:patientAll.php');
+        }
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,31 +50,24 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
   <title>SMAC Patient</title>
 
-  <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
-  <!-- Page level plugin CSS-->
   <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
-  <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
 
 </head>
 <body id="page-top">
-
     <!-- Top Nav -->
   <?php 
-    require_once("topNav.php");
+    include("topNav.php");
   ?> 
   <div id="wrapper">
   <!-- Sidebar -->
   <?php 
-    require_once("sideNav.php");
+    include("sideNav.php");
   ?> 
       <div id="content-wrapper">
         <div class="container-fluid">
@@ -42,70 +79,51 @@
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+             
                 <thead>
                   <tr>
-                  <th>
-                        <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox" id="1">
-                            <label class="custom-control-label" for="1"></label>
-                        </div>
-                    </th>
+                    <th>Id</th>
                     <th>Pet's Name</th>
                     <th>Species</th>
                     <th>Owner's Name</th>
                     <th>Mobile Number</th>
+                    <th>Email</th>
                     <th>Address</th>
+                    <th>Gender</th>
+                     <th width="200">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                  <td>
-                        <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox" id="1">
-                            <label class="custom-control-label" for="1"></label>
-                        </div>
-                    </td>
-                    <td>Santie Pelayoopopopopopopopopopopoy</td>
-                    <td>Doggogogogogo</td>
-                    <td>TJ Mariano</td>
-                    <td>09554738764</td>
-                    <td>143 Sa Puso Mo</td>
-                  </tr>
-                  <tr>
-                  <td>
-                        <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox" id="1">
-                            <label class="custom-control-label" for="1"></label>
-                        </div>
-                    </td>
-                    <td>Santie Pelayo</td>
-                    <td>Dog</td>
-                    <td>TJ Mariano</td>
-                    <td>09554738764</td>
-                    <td>143 Sa Puso Mo</td>
-                  </tr>
-                </tbody>
-              </table>
-              <!--Export links-->
-              <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-center export-pagination">
-                                <li class="page-item">
-                                    <a class="page-link" href="#"><span class="ti-download"></span> csv</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#"><span class="ti-printer"></span>  print</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#"><span class="ti-file"></span> PDF</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#"><span class="ti-align-justify"></span> Excel</a>
-                                </li>
-                            </ul>
-                        </nav>
-                        <!-- /Export links-->
-                        <button type="button" class="btn btn-danger mt-3 mb-0"><span class="ti-trash"></span> DELETE</button>
-                        <button type="button" class="btn btn-primary mt-3 mb-0"><span class="ti-pencil-alt"></span> EDIT</button>
+                                   <?php   
+
+                                        $sql = "SELECT * from patient";
+                                        $query = $conn -> prepare($sql);
+                                        $query->execute();
+                                        while($row =  $query->fetch())
+                                    {   
+                                       ?>  
+                                         <tr>
+                                                <td> <?php echo htmlentities($row['idPatient']);?></td>
+                                                <td> <?php echo htmlentities($row['petName']);?></td>
+                                                <td> <?php echo htmlentities($row['species']);?></td>
+                                                <td> <?php echo htmlentities($row['ownerName']);?></td>
+                                                <td> <?php echo htmlentities($row['mobile']);?></td>
+                                                <td> <?php echo htmlentities($row['email']);?></td>
+                                                <td> <?php echo htmlentities($row['patientAddress']);?></td>
+                                                <td> <?php echo htmlentities($row['gender']);?></td>
+                                                <td>
+
+                                                <button type="button"  data-toggle="modal" data-target="#myModal" class="update btn btn-primary btn-sm"> Update </button>
+                                                  &nbsp;
+
+                                                <a  class="btn btn-danger btn-sm" href="patientAll.php?idPatient=<?php echo htmlentities($row['idPatient']);?>"  onclick="return confirm('Do you want to delete this patient?');">Delete</a>
+
+                                              </td>                                           
+                                        </tr>
+                                 <?php  }?>
+                        </tbody>
+                      </table>
+         
                     </div>
                 </div>
             </div>
@@ -113,6 +131,73 @@
             </div>
           </div>
       </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <form  method="POST">
+               <input type="hidden" id="hiddenId" name="hiddenId">
+        <div class="modal-header">
+          <h4 class="modal-title">Update Details</h4>
+        </div>
+       
+        <div class="modal-body">
+                
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="petName">Pet Name</label>
+                <input type="text" class="form-control" name="petName" placeholder="Pet's name" id="petName">
+            </div>
+                  <div class="form-group col-md-6">
+                <label for="species">Species</label>
+                <input type="text" class="form-control" name="species" placeholder="Species" id="species">
+            </div>
+         </div>
+             <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="ownerName">Owner's Name</label>
+                <input type="text" class="form-control" name="ownerName" placeholder="Owner's name" id="ownerName">
+            </div>
+                  <div class="form-group col-md-6">
+                <label for="mobile">Mobile</label>
+                <input type="text" class="form-control" name="mobile" placeholder="Mobile Number" id="mobile">
+            </div>
+         </div>
+       
+           <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="email ">Email</label>
+                <input type="text" class="form-control" name="email" placeholder="Email" id="email">
+            </div>
+                  <div class="form-group col-md-6">
+                <label for="address">Address</label>
+                <input type="text" class="form-control" name="address" placeholder="Address" id="address">
+            </div>
+         </div>
+           <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="gender">Gender</label>
+                <select class="form-control" name="gender">
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+            </div>
+         </div>
+       
+        </div>
+        <div class="modal-footer">
+           <input type="submit" class="btn btn-primary" name="btnUpdate" value="Save Changes">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+     
+      </div>
+       </form>
+    </div>
+  </div>
+</div>
+
       <!-- /.container-fluid -->
                         
     </div>
@@ -162,7 +247,7 @@
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
   
     <!-- Page level plugin JavaScript-->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+   <!-- <script src="vendor/chart.js/Chart.min.js"></script>-->
     <script src="vendor/datatables/jquery.dataTables.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
   
@@ -171,8 +256,32 @@
   
     <!-- Demo scripts for this page-->
     <script src="js/demo/datatables-demo.js"></script>
-    <script src="js/demo/chart-area-demo.js"></script>
-  
+
+         <script type="text/javascript">
+       $(document).ready(function(){
+             $('#dataTable tbody').on('click','.update',function(){
+                    var currow = $(this).closest('tr');
+                    var id = currow.find('td:eq(0)').text();
+                    var petName = currow.find('td:eq(1)').text();
+                    var species = currow.find('td:eq(2)').text();
+                    var ownerName = currow.find('td:eq(3)').text();
+                    var mobile = currow.find('td:eq(4)').text();
+                    var email = currow.find('td:eq(5)').text();
+                    var address = currow.find('td:eq(6)').text();
+                    var gender = currow.find('td:eq(7)').text();
+                    $('#hiddenId').val(id);
+                    $('#petName').val(petName);
+                    $('#species').val(species);
+                    $('#ownerName').val(ownerName);
+                    $('#mobile').val(mobile);
+                    $('#email').val(email);
+                    $('#address').val(address);
+                    $('#gender').val(gender);
+
+            });  
+        }); 
+       </script>
+ 
   </body>
   
   </html>

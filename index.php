@@ -1,5 +1,6 @@
 <?php
 	session_start();
+  include "config.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,7 +56,15 @@
                   </div>
                   <div class="widget-right">
                     <h4 class="wiget-title">Patients</h4>
-                    <span class="numeric-color">143</span>
+                           <?php
+                                $sql = "SELECT COUNT(*) as count from patient";
+                                $query = $conn -> prepare($sql);
+                                $query->execute();
+                                $results=$query->fetch(PDO::FETCH_ASSOC);
+                                $count1 = $results['count'];
+                                
+                                ?>                    
+                  <span class="numeric-color"><?php echo $count1; ?></span>
                   </div>
               </div>
             </div>
@@ -69,7 +78,15 @@
                 </div>
                 <div class="widget-right">
                   <h4 class="wiget-title">Appointments</h4>
-                  <span class="numeric-color">14344</span>
+                    <?php
+                                $sql = "SELECT COUNT(*) as count from tbl_appointment";
+                                $query = $conn -> prepare($sql);
+                                $query->execute();
+                                $results=$query->fetch(PDO::FETCH_ASSOC);
+                                $count1 = $results['count'];
+                                
+                                ?>                    
+                  <span class="numeric-color"><?php echo $count1; ?></span>
                 </div>
               </div>
             </div>

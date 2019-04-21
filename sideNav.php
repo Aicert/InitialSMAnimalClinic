@@ -25,6 +25,16 @@
           <a class="dropdown-item" href="appointmentAdd.php">Add Appointment</a>
         </div>
       </li>
+          <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-user-md"></i>
+          <span>Doctors</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+          <a class="dropdown-item" href="doctorAll.php">All Doctor</a>
+          <a class="dropdown-item" href="doctorAdd.php">Add Doctor</a>
+        </div>
+      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fa fa-credit-card"></i>

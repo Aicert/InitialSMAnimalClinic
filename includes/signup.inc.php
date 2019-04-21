@@ -1,7 +1,7 @@
 <?php
 if (isset($_POST['signup-submit'])){
 
-    require 'db.inc.php';
+    include '../config.php';
 
     $username = $_POST['userName'];
     $password = $_POST['userPassword'];
