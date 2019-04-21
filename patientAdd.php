@@ -1,4 +1,34 @@
+<?php
+  
 
+
+  $serverName ="localhost";
+  $dbUserName = "root";
+  $dbPassword = "";
+  $dbName = "smac";
+  
+  $conn = mysqli_connect($serverName, $dbUserName, $dbPassword, $dbName );
+  
+  if(!$conn){
+      die("connection_failed:".mysqli_connect_error());
+  }
+  
+  if(isset($_POST['patientAddSubmit']))
+  {
+
+
+      $sql = "INSERT INTO patient (ownerName, mobile, email, patientAddress, petName, species, gender, age, curCondition, medHistory, vaccination )
+      VALUES ('".$_POST["ownerName"]."','".$_POST["mobile"]."', '".$_POST["email"]."', '".$_POST["patientAddress"]."', '".$_POST["petName"]."', '".$_POST["species"]."', '".$_POST["gender"]."', '".$_POST["age"]."', '".$_POST["curCondition"]."', '".$_POST["medHistory"]."', '".$_POST["vaccination"]."')";
+   
+      if ($conn->query($sql) === TRUE) {
+        echo "<script type= 'text/javascript'>alert('New record created successfully');</script>";
+        } else {
+        echo "<script type= 'text/javascript'>alert('Error: " . $sql . "<br>" . $conn->error."');</script>";
+        }
+  }
+     
+?>
+  
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,37 +64,7 @@
   require_once("sideNav.php");
 ?> 
 
-<?php
-  
 
-
-  $serverName ="localhost";
-  $dbUserName = "root";
-  $dbPassword = "";
-  $dbName = "smac";
-  
-  $conn = mysqli_connect($serverName, $dbUserName, $dbPassword, $dbName );
-  
-  if(!$conn){
-      die("connection_failed:".mysqli_connect_error());
-  }
-  
-  if(isset($_POST['patientAddSubmit']))
-  {
-
-
-      $sql = "INSERT INTO patient (ownerName, mobile, email, patientAddress, petName, species, gender, age, curCondition, medHistory, vaccination )
-      VALUES ('".$_POST["ownerName"]."','".$_POST["mobile"]."', '".$_POST["email"]."', '".$_POST["patientAddress"]."', '".$_POST["petName"]."', '".$_POST["species"]."', '".$_POST["gender"]."', '".$_POST["age"]."', '".$_POST["curCondition"]."', '".$_POST["medHistory"]."', '".$_POST["vaccination"]."')";
-   
-      if ($conn->query($sql) === TRUE) {
-        echo "<script type= 'text/javascript'>alert('New record created successfully');</script>";
-        } else {
-        echo "<script type= 'text/javascript'>alert('Error: " . $sql . "<br>" . $conn->error."');</script>";
-        }
-  }
-     
-?>
-  
       <div id="content-wrapper">
   
         <div class="container-fluid">
@@ -131,7 +131,7 @@
                                                                 
                             
                             <div class="form-group col-md-6 mb-3">
-                                <input type="submit" name="patientAddSubmit" value="Submit">
+                                <input type="submit" name="patientAddSubmit"  class="btn btn-info" value="Submit">
                             </div>
                         </div>
                     </form>
