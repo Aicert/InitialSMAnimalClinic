@@ -25,10 +25,10 @@
           <a class="dropdown-item" href="appointmentAdd.php">Add Appointment</a>
         </div>
       </li>
-          <li class="nav-item dropdown">
+         <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fa fa-user-md"></i>
-          <span>Doctors</span>
+          <span>Manage Doctor</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <a class="dropdown-item" href="doctorAll.php">All Doctor</a>
@@ -37,12 +37,22 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fa fa-credit-card"></i>
-          <span>Payments</span>
+          <i class="fa fa-user-circle"></i>
+          <span>Manage Assistant</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-          <a class="dropdown-item" href="paymentAll.php">All Payment</a>
-          <a class="dropdown-item" href="paymentAdd.php">Add Payment</a>
+          <a class="dropdown-item" href="assistantAll.php">All Assistant</a>
+          <a class="dropdown-item" href="assistantAdd.php">Add Assistant</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-clipboard-list"></i>
+          <span>Manage Services</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+          <a class="dropdown-item" href="paymentAll.php">All Services</a>
+          <a class="dropdown-item" href="paymentAdd.php">Add Service</a>
         </div>
       </li>
     </ul>

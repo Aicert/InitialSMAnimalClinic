@@ -1,3 +1,23 @@
+<?php
+include "config.php";
+
+$sql = "SELECT * FROM tbl_patients";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$patientList = $stmt->fetchAll();
+
+$sql = "SELECT * FROM tbl_doctor";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$doctorList = $stmt->fetchAll();
+
+$sql = "SELECT * FROM tbl_services";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$servicesList = $stmt->fetchAll();
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,10 +26,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <link rel="icon" href="images/icon.png" type="image/x-icon" />
 
-  <title>SB Admin - Dashboard</title>
+  <title>San Mateo Animal Clinic</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -45,20 +64,37 @@
                                 <form>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label for="patient-name">Patient ID</label>
-                                            <input type="text" class="form-control" placeholder="Patient ID" id="patient-id">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="department">Department</label>
-                                            <select class="form-control" id="department">
-                                                <option>Neuro</option>
-                                                <option>Ortho</option>
-                                                <option>General</option>
+                                            <label for="patient-name">Select Patient</label>
+                                             <select class="form-control" id="department">
+                                                   <?php
+                                                  // gererate list of patient
+                                                  foreach($patientList as $row) {
+                                                      echo "<option value='" . $row['petName'] . "'>" . $row['petName'] . "</option>";
+                                                  }
+                                                  ?>
                                             </select>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="doctor-name">Doctor Name</label>
-                                            <input type="text" placeholder="Doctor Name" class="form-control" id="doctor-name">
+                                            <label for="department">Select Doctor </label>
+                                            <select class="form-control" id="department">
+                                                   <?php
+                                                  // gererate list of patient
+                                                  foreach($doctorList as $row) {
+                                                      echo "<option value='" . $row['id'] . "'>" . $row['firstName'] . " " . $row['lastName'] . "</option>";
+                                                  }
+                                                  ?>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="department">Select Service </label>
+                                            <select class="form-control" id="department">
+                                                   <?php
+                                                  // gererate list of patient
+                                                  foreach($servicesList as $row) {
+                                                      echo "<option value='" . $row['id'] . "'>" . $row['serviceName'] . " " . $row['lastName'] . "</option>";
+                                                  }
+                                                  ?>
+                                            </select>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="appointment-date">Appointment Date</label>
@@ -78,42 +114,17 @@
                                                 <option>8PM-9PM</option>
                                             </select>
                                         </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="token-number">Token Number <small>(Auto Generated)</small></label>
-                                            <input type="text" placeholder="Token Number" class="form-control" id="token-number">
-                                        </div>
                                         <div class="form-group col-md-12">
                                             <label for="problem">Problem</label>
                                             <textarea placeholder="Problem" class="form-control" id="problem" rows="3"></textarea>
                                         </div>
                                                                             
-                                        <div class="form-check col-md-12 mb-2">
-                                            <div class="text-left">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input" type="checkbox" id="ex-check-2">
-                                                    <label class="custom-control-label" for="ex-check-2">Please Confirm</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-md-6 mb-3">
-                                            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                            
+                                        <div class="form-group col-md-12 mb-3">
+                                            <button type="submit" class="btn btn-primary btn-md" style="float:right">Submit</button>
                                         </div>
                                     </div>
                                 </form>
-                                <!-- Alerts-->
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <strong>Successfully Done!</strong> Appointment token Generated
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                    <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                                <!-- /Alerts-->
                             </div>
                         </div>
                         <!-- /Widget Item -->

@@ -17,7 +17,7 @@
   {
 
 
-      $sql = "INSERT INTO patient (ownerName, mobile, email, patientAddress, petName, species, gender, age, curCondition, medHistory, vaccination )
+      $sql = "INSERT INTO tbl_patients (ownerName, mobile, email, patientAddress, petName, species, gender, age, curCondition, medHistory, vaccination )
       VALUES ('".$_POST["ownerName"]."','".$_POST["mobile"]."', '".$_POST["email"]."', '".$_POST["patientAddress"]."', '".$_POST["petName"]."', '".$_POST["species"]."', '".$_POST["gender"]."', '".$_POST["age"]."', '".$_POST["curCondition"]."', '".$_POST["medHistory"]."', '".$_POST["vaccination"]."')";
    
       if ($conn->query($sql) === TRUE) {
@@ -37,10 +37,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <link rel="icon" href="images/icon.png" type="image/x-icon" />
 
-  <title>SMAC Patient</title>
+  <title>San Mateo Animal Clinic</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -93,11 +92,14 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="email">Email</label>
-                                <input type="email" placeholder="email" name="email" class="form-control" id="Email">
+                                <input type="email" placeholder="Email" name="email" class="form-control" id="Email">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="gender">Gender</label>
-                                <input type="text" placeholder="gender" name="gender" class="form-control" id="gender">
+                                  <select class="form-control" name="gender" id="gender">
+                                        <option value="MALE">MALE</option>
+                                        <option value="FEMALE">FEMALE</option> 
+                                    </select>
                             </div>
                             <!-- <div class="form-group col-md-6">
                                 <label for="gender">Gender</label>

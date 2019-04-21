@@ -8,10 +8,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <link rel="icon" href="images/icon.png" type="image/x-icon" />
 
-  <title>SB Admin - Dashboard</title>
+  <title>San Mateo Animal Clinic</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -50,7 +49,7 @@
                   Appointments</div>
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="white-space: nowrap;">
                       <thead>
                         <tr>
                           <th>Id</th>
@@ -81,13 +80,22 @@
                                                 <td> <?php echo htmlentities($row['dateSchedule']);?></td>
                                                 <td> <?php echo htmlentities($row['time']);?></td>
                                                 <td> <?php echo htmlentities($row['problem']);?></td>
-                                                 <td> <?php echo htmlentities($row['status']);?></td>
+                                                <td> <?php 
+                                                    if($row['status'] == 1)
+                                                    {
+                                                         echo"<span class=\"badge badge-success\">Done</span>";
+                                                    }
+                                                    else
+                                                    {
+                                                         echo"<span class=\"badge badge-danger\">Pending</span>";
+                                                    }
+                                                ?></td>
                                                 <td>
 
-                                                <button type="button"  data-toggle="modal" data-target="#myModal" class="update btn btn-primary mt-3 mb-0"> UPDATE </button>
+                                                <button type="button"  data-toggle="modal" data-target="#myModal" class="update btn btn-primary btn-sm"> Update </button>
                                                   &nbsp;
 
-                                                <a  class="btn btn-danger mt-3 mb-0" href="patientAll.php?idPatient=<?php echo htmlentities($row['id']);?>"  onclick="return confirm('Do you want to delete this patient?');">Delete</a>
+                                                <a  class="btn btn-danger btn-sm" href="patientAll.php?idPatient=<?php echo htmlentities($row['id']);?>"  onclick="return confirm('Do you want to delete this patient?');">Delete</a>
 
                                               </td>                                           
                                         </tr>

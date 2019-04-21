@@ -5,7 +5,7 @@
         {
                 $id=$_GET['idPatient'];
 
-                $sql = "DELETE FROM patient WHERE idPatient=:id";
+                $sql = "DELETE FROM tbl_patients WHERE idPatient=:id";
                 $query = $conn->prepare($sql);   
                 $query -> bindParam(':id',$id, PDO::PARAM_STR);
                 $query -> execute();
@@ -23,9 +23,9 @@
                 $email=$_POST['email'];
                 $address=$_POST['address'];
                 $gender=$_POST['gender'];
-                echo '<script type="text/javascript">alert("'.$gender.'");</script>';
+
            
-                $sql = "UPDATE patient set petName=:petName,species=:species,ownerName=:ownerName,mobile=:mobile,email=:email,patientAddress=:address,gender=:gender
+                $sql = "UPDATE tbl_patients set petName=:petName,species=:species,ownerName=:ownerName,mobile=:mobile,email=:email,patientAddress=:address,gender=:gender
                 WHERE idPatient=:id";
                 $query = $conn->prepare($sql);   
                 $query -> bindParam(':id',$id);
@@ -50,7 +50,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>SMAC Patient</title>
+  <link rel="icon" href="images/icon.png" type="image/x-icon" />
+
+  <title>San Mateo Animal Clinic</title>
 
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
@@ -96,7 +98,7 @@
                 <tbody>
                                    <?php   
 
-                                        $sql = "SELECT * from patient";
+                                        $sql = "SELECT * from tbl_patients";
                                         $query = $conn -> prepare($sql);
                                         $query->execute();
                                         while($row =  $query->fetch())

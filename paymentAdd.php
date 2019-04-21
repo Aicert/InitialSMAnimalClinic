@@ -1,3 +1,29 @@
+<?php
+include "config.php";
+   if(isset($_POST['btnSave'])) 
+
+            { 
+                $serviceName = $_POST['serviceName'];
+                $price = $_POST['price'];
+                $createdBy = "admin";
+                $status = 1;
+              
+                $sth=$conn->prepare("INSERT INTO tbl_services(serviceName,price,createdBy,status)
+                VALUES(:serviceName,:price,:createdBy,:status) "); 
+                $sth->bindParam(':serviceName',$serviceName); 
+                $sth->bindParam(':price',$price); 
+                $sth->bindParam(':createdBy',$createdBy); 
+                $sth->bindParam(':status',$status); 
+                $sth->execute(); 
+
+                 header('location:paymentAll.php');
+                  echo "<script type= 'text/javascript'>alert('New record created successfully');</script>";
+
+             } 
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,10 +32,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <link rel="icon" href="images/icon.png" type="image/x-icon" />
 
-  <title>SMAC Payment</title>
+  <title>San Mateo Animal Clinic</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -22,8 +47,8 @@
 
 </head>
 <body id="page-top">
-
-   <!-- Top Nav -->
+  
+    <!-- Top Nav -->
   <?php 
     require_once("topNav.php");
   ?> 
@@ -37,113 +62,29 @@
         <div class="container-fluid">
   
           <!-- Breadcrumbs-->
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-              <a href="#">Animal Registration</a>
-            </li>
-            <li class="breadcrumb-item active">Overview</li>
-          </ol>
           <div class="row">
             <!-- Widget Item -->
-					<div class="col-md-12">
+          <div class="col-md-12">
                             <div class="widget-area-2 proclinic-box-shadow">
-                                <h3 class="widget-title">Add Payment</h3>
-                                <form>
+                                <h3 class="widget-title">Add New Payment</h3>
+                                <form method="POST">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label for="patient-id">Patient ID</label>
-                                            <input type="text" class="form-control" placeholder="Patient ID" id="patient-id">
+                                            <label for="First Name">Service Name</label>
+                                            <input type="text" class="form-control"  name="serviceName" placeholder="Service Name" id="patient-id">
                                         </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="patient-name">Patient Name</label>
-                                            <input type="text" class="form-control" placeholder="Patient Name" id="patient-name">
+                                            <div class="form-group col-md-6">
+                                            <label for="Last Name">Price</label>
+                                            <input type="text" class="form-control"  name="price" placeholder="Price" id="patient-id">
                                         </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="department">Department</label>
-                                            <select class="form-control" id="department">
-                                                <option>Neuro</option>
-                                                <option>Ortho</option>
-                                                <option>General</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="doctor-name">Doctor Name</label>
-                                            <input type="text" placeholder="Doctor Name" class="form-control" id="doctor-name">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="adminssion-date">Admission Date</label>
-                                            <input type="date" placeholder="Adminssion Date" class="form-control" id="adminssion-date">
-                                        </div>	
-                                        <div class="form-group col-md-6">
-                                            <label for="discharge-date">Discharge Date</label>
-                                            <input type="date" placeholder="Discharge Date" class="form-control" id="discharge-date">
-                                        </div>	
-                                        <div class="form-group col-md-12">
-                                            <h4>Services</h4>										
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="service-name">Service Name</label>
-                                            <input type="text" placeholder="Service Name" class="form-control" id="service-name">
-                                        </div>	
-                                        <div class="form-group col-md-6">
-                                            <label for="treatment-cost">Cost of Treatment</label>
-                                            <input type="text" placeholder="Cost of Treatment" class="form-control" id="treatment-cost">
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                            <button type="button" class="btn btn-outline-success"><span class="ti-plus"></span> Add Service</button>										
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                            <h4>Payment</h4>										
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label for="discount">Discount (%)</label>
-                                            <input type="text" placeholder="Discount" class="form-control" id="discount">
-                                        </div>	
-                                        <div class="form-group col-md-3">
-                                            <label for="advance-paid">Advance Paid</label>
-                                            <input type="text" placeholder="Advance Paid" class="form-control" id="advance-paid">
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label for="payment-type">Payment Type</label>
-                                            <select class="form-control" id="payment-type">
-                                                <option>Check</option>
-                                                <option>Card</option>
-                                                <option>Cash</option>
-                                            </select>
-                                        </div>	
-                                        <div class="form-group col-md-3">
-                                            <label for="card-check">Card/Check No</label>
-                                            <input type="text" placeholder="Card/Check No" class="form-control" id="card-check">
-                                        </div>																	
-                                        <div class="form-check col-md-12 mb-2">
-                                            <div class="text-left">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input" type="checkbox" id="ex-check-2">
-                                                    <label class="custom-control-label" for="ex-check-2">Please Confirm</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-md-6 mb-3">
-                                            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                                        <div class="form-group col-md-12 mb-12">
+                                            <input type="submit" value="Submit" name="btnSave" class="btn btn-primary btn-md" style="float:right;">
                                         </div>
                                     </div>
                                 </form>
-                                <!-- Alerts-->
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <strong>Successfully Done!</strong> Payment added
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                    <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                                <!-- /Alerts-->
+                            
                             </div>
-                        </div>
+                        </div>  
                         <!-- /Widget Item -->
         </div>
   
@@ -195,7 +136,7 @@
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
   
     <!-- Page level plugin JavaScript-->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+
     <script src="vendor/datatables/jquery.dataTables.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
   
@@ -204,8 +145,7 @@
   
     <!-- Demo scripts for this page-->
     <script src="js/demo/datatables-demo.js"></script>
-    <script src="js/demo/chart-area-demo.js"></script>
+
   
   </body>
-  
   </html>

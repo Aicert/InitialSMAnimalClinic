@@ -1,6 +1,7 @@
 <?php
 	session_start();
   include "config.php";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,10 +11,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <link rel="icon" href="images/icon.png" type="image/x-icon" />
 
-  <title>SMAC Dashboard</title>
+  <title>San Mateo Animal Clinic</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -47,7 +47,7 @@
         
         <!-- Icon Cards-->
         <div class="row">
-          <div class="col-xl-6 col-sm-6 mb-3">
+          <div class="col-xl-4 col-sm-4 mb-3">
             <div class="card1  o-hidden h-100">
               <div class="card-body">
                 <div class="mr-5"></div>
@@ -57,7 +57,7 @@
                   <div class="widget-right">
                     <h4 class="wiget-title">Patients</h4>
                            <?php
-                                $sql = "SELECT COUNT(*) as count from patient";
+                                $sql = "SELECT COUNT(*) as count from tbl_patients";
                                 $query = $conn -> prepare($sql);
                                 $query->execute();
                                 $results=$query->fetch(PDO::FETCH_ASSOC);
@@ -69,7 +69,7 @@
               </div>
             </div>
           </div>
-          <div class="col-xl-6 col-sm-6 mb-3">
+          <div class="col-xl-4 col-sm-4 mb-3">
             <div class="card2  o-hidden h-100">
               <div class="card-body">
                 <div class="mr-5"></div>
@@ -91,12 +91,35 @@
               </div>
             </div>
           </div>
-        </div>
+    
+          <div class="col-xl-4 col-sm-4 mb-3">
+            <div class="card2  o-hidden h-100">
+              <div class="card-body">
+                <div class="mr-5"></div>
+                <div class="widget-left">
+                  <span class="fa fa-clipboard-list"></span>
+                </div>
+                <div class="widget-right">
+                  <h4 class="wiget-title">Total Service</h4>
+                    <?php
+                                $sql = "SELECT COUNT(*) as count from tbl_services";
+                                $query = $conn -> prepare($sql);
+                                $query->execute();
+                                $results=$query->fetch(PDO::FETCH_ASSOC);
+                                $count1 = $results['count'];
+                                
+                                ?>                    
+                  <span class="numeric-color"><?php echo $count1; ?></span>
+                </div>
+              </div>
+            </div>
+          </div>
+   </div>
         <!-- DataTable for Appointments -->
         <div class="card mb-3">
           <div class="card-header">
             <i class="fa fa-list-alt"></i>
-            Appointments</div>
+            Latest Appointments</div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -110,38 +133,33 @@
                     <th>Status</th>
                   </tr>
                 </thead>
-                <tfoot>
-                  <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
-                  </tr>
-                </tfoot>
                 <tbody>
-                  <tr>
-                    <td>TJ Mariano</td>
-                    <td>Santie Pelayo</td>
-                    <td>Doctor Quack Quack</td>
-                    <td>03-31-2019</td>
-                    <td>12:10PM</td>
-                    <td>
-                      <span class="badge badge-success">Completed</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Winnie the Pooh</td>
-                    <td>Piglet </td>
-                    <td>Doctor Strange </td>
-                    <td>03-31-2019</td>
-                    <td>1:10PM</td>
-                    <td>
-                      <span class="badge badge-danger">Cancelled</span>
-                    </td>
-                  </tr>
-                  </tr>
+                     <?php   
+
+                                        $sql = "SELECT * from tbl_appointment";
+                                        $query = $conn -> prepare($sql);
+                                        $query->execute();
+                                        while($row =  $query->fetch())
+                                    {   
+                                       ?>  
+                                         <tr>
+                                                <td> <?php echo htmlentities($row['ownerName']);?></td>
+                                                <td> <?php echo htmlentities($row['petName']);?></td>
+                                                <td> <?php echo htmlentities($row['doctorName']);?></td>
+                                                <td> <?php echo htmlentities($row['dateSchedule']);?></td>
+                                                <td> <?php echo htmlentities($row['time']);?></td>
+                                                <td> <?php 
+                                                    if($row['status'] == 1)
+                                                    {
+                                                         echo"<span class=\"badge badge-success\">Done</span>";
+                                                    }
+                                                    else
+                                                    {
+                                                         echo"<span class=\"badge badge-danger\">Pending</span>";
+                                                    }
+                                                ?></td>
+                                        </tr>
+                                 <?php  }?>
                 </tbody>
               </table>
             </div>
