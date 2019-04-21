@@ -1,0 +1,30 @@
+
+html{
+    font-family: 'Helvetica';
+    letter-spacing: 3px;
+    background:linear-gradient(#fafcfc, #4fa8d1, #65c8f0);
+    background-repeat: no-repeat;
+    height: 100%;
+}
+.form-box{
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    padding: 0.5rem 0;
+    
+}
+.form-box input{
+    flex-basis: 90%;
+    height: 20px;
+    width: 90%;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: none;
+}
+.form-wrapper{
+    padding: 20px;
+    margin: 15% 30% 0% 30%;
+    background-color: #fff;
+}
